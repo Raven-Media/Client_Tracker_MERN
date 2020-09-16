@@ -8,9 +8,9 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    const clientname = req.body.clientname
+    const clientName = req.body.client_name
 
-    const newClient = new Client({ clientname });
+    const newClient = new Client({ clientName });
 
     newClient.save()
         .then(() => res.json('Client Added!'))
