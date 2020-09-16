@@ -25,7 +25,7 @@ router.route('/add').post((req, res) => {
     });
 
     newProject.save()
-        .then(() => res.json('Client Added!'))
+        .then(() => res.json('Project Added!'))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
