@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Client = require('../models/client.model')
+let Client = require('../models/client.model');
 
 router.route('/').get((req, res) => {
     Client.find()
@@ -7,10 +7,14 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
-    const clientName = req.body.client_name
+// router.route('/add').post((req, res) => {
+router.post("/add", (req, res) => {
 
-    const newClient = new Client({ clientName });
+    const newClient = new Client({ 
+        
+    client_name: req.body.client_name
+
+    });
 
     newClient.save()
         .then(() => res.json('Client Added!'))
@@ -18,3 +22,8 @@ router.route('/add').post((req, res) => {
 });
 
 module.exports = router; 
+
+// const clientName = req.body.client_name;
+
+// const newClient = new Client({ clientName });
+

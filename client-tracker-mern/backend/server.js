@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
 
 //Server Setup 
 require('dotenv').config();
@@ -23,6 +24,10 @@ const connection = mongoose.connection;
 connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 })
+
+// Setting up basic middleware for all Express requests
+app.use(bodyParser.urlencoded({ extended: true })); // Parses urlencoded bodies
+app.use(bodyParser.json()); // Send JSON responses
 
 //Routes 
 const clientsRouter = require('./routes/clients')
