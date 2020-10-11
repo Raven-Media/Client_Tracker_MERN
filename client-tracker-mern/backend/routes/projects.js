@@ -55,6 +55,11 @@ router.post("/update/:id", (req, res) => {
 
 
 // "Delete" Delete Function- Find by ID and delete 
+router.route('/:id').delete((req, res) => {
+    Project.findByIdAndDelete(req.params.id)
+        .then(() => res.json("Project Deleted"))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
 
 
 //Export Router Modules 
