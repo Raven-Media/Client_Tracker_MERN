@@ -1,13 +1,14 @@
 const router = require('express').Router();
 let Project = require('../models/project.model')
 
+// Get All "Get" Function
 router.route('/').get((req, res) => {
     Project.find()
         .then(clients => res.json(clients))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// router.route('/add').post((req, res) => {
+// Create Function 
 router.post("/add", (req, res) => {
 
     const newProject = new Project({
@@ -25,6 +26,12 @@ router.post("/add", (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// Get by ID "Get" Function
+router.route('/:id').get((req, res) => {
+    Project.findById(req.params.id)
+        .then(projects => res.json(projects))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
 module.exports = router;
 
 //Misc variable declarations 
@@ -53,3 +60,5 @@ module.exports = router;
 // "estimated_duration": "1",
 // "start_date": "05-27-2020"
 // }
+
+// router.route('/add').post((req, res) => {
