@@ -1,14 +1,14 @@
 const router = require('express').Router();
 let Project = require('../models/project.model')
 
-// Get All "Get" Function
+// Get All "Get" Function- Find 
 router.route('/').get((req, res) => {
     Project.find()
-        .then(clients => res.json(clients))
+        .then(projects => res.json(projects))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// Create Function 
+// "Create" Post Function 
 router.post("/add", (req, res) => {
 
     const newProject = new Project({
@@ -26,13 +26,40 @@ router.post("/add", (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// Get by ID "Get" Function
+// "Read" Get Function- Find by ID
 router.route('/:id').get((req, res) => {
     Project.findById(req.params.id)
         .then(projects => res.json(projects))
         .catch(err => res.status(400).json('Error: ' + err));
 });
+
+// "Update" Post Function- Find by ID
+router.post("/update/:id", (req, res) => {
+
+    Project.findById(req.params.id)
+        .then(project => {
+            project.project_name = req.body.project_name;
+            project.project_description = req.body.project_description;
+            project.project_stack = req.body.project_stack;
+            project.project_phases = Number(req.body.project_phases);
+            project.estimated_duration = Number(req.body.estimated_duration);
+            project.start_date = Date.parse(req.body.start_date); 
+
+            project.save()
+                .then(() => res.json('Project Updated!'))
+                .catch(err => res.status(400).json('Error: ' + err));
+
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+}); 
+
+
+// "Delete" Delete Function- Find by ID and delete 
+
+
+//Export Router Modules 
 module.exports = router;
+
 
 //Misc variable declarations 
 
@@ -62,3 +89,23 @@ module.exports = router;
 // }
 
 // router.route('/add').post((req, res) => {
+
+
+router.post("/update/:id", (req, res) => {
+
+    Project.findById(req.params.id)
+        .then(project => {
+            project.project_name = req.body.project_name;
+            project.project_description = req.body.project_description;
+            project.project_stack = req.body.project_stack;
+            project.project_phases = Number(req.body.project_phases);
+            project.estimated_duration = Number(req.body.estimated_duration);
+            project.start_date = Date.parse(req.body.start_date); 
+
+            project.save()
+                .then(() => res.json('Project Added!'))
+                .catch(err => res.status(400).json('Error: ' + err));
+
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+}); 
