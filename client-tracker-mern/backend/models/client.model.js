@@ -6,9 +6,8 @@ const clientSchema = new Schema({
     client_name: {
         type: String,
         default: "", 
-        nullable: true,
         required: true,
-        unique: true,
+        sparse: true,
         trim: true,
         minlength: 3
     },

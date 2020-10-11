@@ -9,6 +9,7 @@ router.route('/').get((req, res) => {
 });
 
 // "Create" Post Function 
+// Note that const "newProject" is classified as an object, not just a variable 
 router.post("/add", (req, res) => {
 
     const newProject = new Project({
@@ -53,7 +54,6 @@ router.post("/update/:id", (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 }); 
 
-
 // "Delete" Delete Function- Find by ID and delete 
 router.route('/:id').delete((req, res) => {
     Project.findByIdAndDelete(req.params.id)
@@ -74,14 +74,12 @@ module.exports = router;
 //     const projectPhases = Number(req.body.project_phases)
 //     const estDuration = Number(req.body.estimated_duration)
 //     const startDate = Date.parse(req.body.start_date)
-
 // projectName,
 // projectDescription,
 // projectStack,
 // projectPhases,
 // estDuration,
 // startDate
-
 
 //Insomnia/Postman Model Route Test JSON 
 // {
@@ -94,23 +92,3 @@ module.exports = router;
 // }
 
 // router.route('/add').post((req, res) => {
-
-
-router.post("/update/:id", (req, res) => {
-
-    Project.findById(req.params.id)
-        .then(project => {
-            project.project_name = req.body.project_name;
-            project.project_description = req.body.project_description;
-            project.project_stack = req.body.project_stack;
-            project.project_phases = Number(req.body.project_phases);
-            project.estimated_duration = Number(req.body.estimated_duration);
-            project.start_date = Date.parse(req.body.start_date); 
-
-            project.save()
-                .then(() => res.json('Project Added!'))
-                .catch(err => res.status(400).json('Error: ' + err));
-
-        })
-        .catch(err => res.status(400).json('Error: ' + err));
-}); 
