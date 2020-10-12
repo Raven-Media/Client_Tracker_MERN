@@ -10,9 +10,9 @@ router.route('/').get((req, res) => {
 // router.route('/add').post((req, res) => {
 router.post("/add", (req, res) => {
 
-    const newClient = new Client({ 
-        
-    client_name: req.body.client_name
+    const newClient = new Client({
+        client_name: req.body.client_name,
+        add_date: Date.parse(req.body.add_date)
 
     });
 
@@ -21,7 +21,7 @@ router.post("/add", (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-module.exports = router; 
+module.exports = router;
 
 // const clientName = req.body.client_name;
 

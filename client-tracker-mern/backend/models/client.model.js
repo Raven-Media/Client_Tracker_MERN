@@ -11,6 +11,7 @@ const clientSchema = new Schema({
         trim: true,
         minlength: 3
     },
+    add_date: { type: Date, required: true },
 
 }, {
     timestamps: true,
